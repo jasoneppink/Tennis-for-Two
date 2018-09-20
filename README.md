@@ -12,7 +12,7 @@ More soon...
 * 2x [knobs](https://www.digikey.com/product-detail/en/te-connectivity-alcoswitch-switches/PKB90B1-4/450-1730-ND/1201515)
 * 2x [buttons](https://www.digikey.com/product-detail/en/e-switch/PS1040ARED/EG2035-ND/53842)
 * 3x [aluminum boxes](https://www.amazon.com/HAMMOND-1550E-ENCLOSURE-INSTRUMENT-ALUMINIUM/dp/B005T8PW1K/)
-* 2x 100K(?) resistors
+* 2x [10K resistors](https://www.adafruit.com/product/2784)
 * 3x [banana plug cables](https://www.amazon.com/Elenco-Banana-Test-Lead-Set/dp/B0002JJU4Q/)
 * perf board
 * [small cable glands](https://www.adafruit.com/product/762)
