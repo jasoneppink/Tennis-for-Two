@@ -6,15 +6,16 @@ Based on [this code and tutorial by Windell Oskay (Evil Mad Scientist Laboratori
 
 More soon...
 
-* Arduino Nano
-* [TLC7528 dual 8-bit DAC](https://www.digikey.com/product-detail/en/texas-instruments/TLC7528CN/296-1871-5-ND/277516)
-* 2x 10K potentiometers
-* 2x knobs
-* 2x buttons
-* 3x aluminum boxes
+* 1x [Arduino Nano](https://store.arduino.cc/usa/arduino-nano)
+* 1x [TLC7528 dual 8-bit DAC](https://www.digikey.com/product-detail/en/texas-instruments/TLC7528CN/296-1871-5-ND/277516)
+* 2x [10K linear potentiometers](https://www.adafruit.com/product/562)
+* 2x [knobs](https://www.digikey.com/product-detail/en/te-connectivity-alcoswitch-switches/PKB90B1-4/450-1730-ND/1201515)
+* 2x [buttons](https://www.digikey.com/product-detail/en/e-switch/PS1040ARED/EG2035-ND/53842)
+* 3x [aluminum boxes](https://www.amazon.com/HAMMOND-1550E-ENCLOSURE-INSTRUMENT-ALUMINIUM/dp/B005T8PW1K/)
 * 2x 100K(?) resistors
-* 3x banana plug cables
+* 3x [banana plug cables](https://www.amazon.com/Elenco-Banana-Test-Lead-Set/dp/B0002JJU4Q/)
 * perf board
-* cable glands
+* [small cable glands](https://www.adafruit.com/product/762)
+* [large cable glands](https://www.adafruit.com/product/761)
 
 Thanks to Trammell Hudson.
