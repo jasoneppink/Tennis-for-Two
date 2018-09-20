@@ -14,8 +14,8 @@ More soon...
 * 3x [aluminum boxes](https://www.amazon.com/HAMMOND-1550E-ENCLOSURE-INSTRUMENT-ALUMINIUM/dp/B005T8PW1K/)
 * 2x [10K resistors](https://www.adafruit.com/product/2784)
 * 3x [banana plug cables](https://www.amazon.com/Elenco-Banana-Test-Lead-Set/dp/B0002JJU4Q/)
-* perf board
-* [small cable glands](https://www.adafruit.com/product/762)
-* [large cable glands](https://www.adafruit.com/product/761)
+* 1x [proto board](https://www.adafruit.com/product/571)
+* 3x [small cable glands](https://www.adafruit.com/product/762)
+* 3x [large cable glands](https://www.adafruit.com/product/761)
 
 Thanks to Trammell Hudson.
