@@ -1,5 +1,6 @@
 # Tennis-for-Two
-A recreation of Tennis for Two (1958) for oscilloscope on exhibit at Museum of the Moving Image
+
+![Tennis for Two at Museum of the Moving Image](https://github.com/jasoneppink/Tennis-for-Two/blob/master/20180913_differentballgame_(c)_sachynmital_119.jpg)
 
 Based on [this code and tutorial by Windell Oskay (Evil Mad Scientist Laboratories)](https://www.evilmadscientist.com/2008/resurrecting-tennis-for-two-a-video-game-from-1958/).
 
