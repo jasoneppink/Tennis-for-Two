@@ -16,21 +16,21 @@
 #define WR 12
 
 void writex(uint8_t coord) {
-  PORTB |= B00010000; //digitalWrite(WR,HIGH);//hold outputs- so new DAC data does not get sent out until we are ready
-  PORTB &= B11111011; //digitalWrite(outputSelector,LOW);//select DACA
+  PORTB |= B00010000; //digitalWrite(WR,HIGH) - hold outputs so new DAC data does not get sent out until we are ready
+  PORTB &= B11111011; //select DACA
   PORTD = coord;
   PORTB &= B11101111;//digitalWrite(WR,LOW);//enable output again
 }
 
 void writey(uint8_t coord) {
-  PORTB |= B00010000; //digitalWrite(WR,HIGH);//hold outputs- so new DAC data does not get sent out until we are ready
-  PORTB |= B00000100; //digitalWrite(outputSelector,LOW);//select DACA
+  PORTB |= B00010000; //digitalWrite(WR,HIGH) - hold outputs so new DAC data does not get sent out until we are ready
+  PORTB |= B00000100; //select DACB
   PORTD = coord;
   PORTB &= B11101111;//digitalWrite(WR,LOW);//enable output again
 }
 
 void setup() { 
-  Serial.begin(14400); //this is necessary because we're using D0 and D1 which are RX and TX on Arduino Nano
+  Serial.begin(14400); //this is necessary for some reason I'm not entirely clear on because we're using D0 and D1 which are RX and TX on Arduino Nano
   float sintable[64];
   float costable[64];
   
@@ -60,7 +60,6 @@ void setup() {
   uint8_t m = 0;
   
   uint8_t Serving = 0;
-  //uint8_t CheckNet = 0;
   
   uint8_t ballside;
   uint8_t Lused = 0;
@@ -81,23 +80,13 @@ void setup() {
   DDRB = 255;
   DDRD = 255;
   writex(0);
-  //PORTB = 0;
   writey(0);
-  //PORTD = 0;
   
   //Inputs:
   DDRC = 0;
-  PORTC = 0; // Pull-ups off.  We have our own external pull-ups anyway.
+  PORTC = 0; // Pull-ups off.
   
-  //ADC Setup
-  //PRR &=  ~(_BV(ICF1));  //Allow ADC to be powered up
-  
-  //ADC 3-5
-  //analogReference(DEFAULT);
-  //ADMUX = Serving * 4;  // Channel 0 or 4 (Serving = 0 if Left has ball. Serving = 1 if Right has ball.)
-  //ADCSRA = 197  ;  // Enable ADC, start, prescale at 32 (197 = 11000101)
   ballside = 0;
-  //analogReference(DEFAULT);
 
   for (byte i=0;i<8;i++){
     pinMode(i, OUTPUT);//set digital pins 0-7 as outputs
@@ -123,10 +112,9 @@ void setup() {
         Rused = 0;
       else
         Lused = 0; 
-     //CheckNet = 1;
     }
   
-    // IF ball has run out of energy, make a new ball!
+    // If ball has run out of energy, make a new ball!
     if ( NewBall > 10 ) {  
       NewBall = 0;
       deadball = 0; 
@@ -135,13 +123,13 @@ void setup() {
      
       if (Serving) {
         xOld = (float) 230;     
-        VxOld = 0;// (float) -2*g; 
+        VxOld = 0;
         ballside = 1;
         Rused = 0;
         Lused = 1; 
       } else {
         xOld = (float) 25; 
-        VxOld = 0;// (float) 2*g; 
+        VxOld = 0;
         ballside = 0;
         Rused = 1;
         Lused = 0; 
@@ -165,46 +153,25 @@ void setup() {
     // Horizontal (X) axis: No acceleration; a = 0.
     // Vertical (Y) axis: a = -g
     
-     
-    // If ADC conversion has finished
-    //if ((ADCSRA & _BV(ADSC)) == 0) { 
-      //ADoutTemp = ADCW;     // Read out ADC value 
-      //Serial.println(ADCW);
-      //Serial.println(analogRead(0));
-    
-      //We are using *ONE* ADC, but sequentially multiplexing it to sample
-      //the two different input lines.
-     
-      //if (ADMUX == 0)
       if (ballside == 0)
-        //Langle =  ADoutTemp >> 4; //ADoutTemp >> 2;
-        Langle =  analogRead(0) >> 4; //ADoutTemp >> 2;
+        Langle =  analogRead(0) >> 4;
       else
-        //Rangle =  ADoutTemp >> 4; // ADoutTemp >> 2;
-        Rangle =  analogRead(2) >> 4; // ADoutTemp >> 2;
-        
+        Rangle =  analogRead(2) >> 4;
      // 64 angles allowed
-     
-      //ADMUX = 4*(ballside);  // Either ch 0 or ch 4.
-      //ADCSRA |= _BV(ADSC);  // Start new ADC conversion 
-    //}
   
-    
     if (NewBallDelay) {
       if (((PINC & 2U) == 0) || ((PINC & 32U) == 0)) // 2U = 00000010 (2nd C port pin), 32U = 00100000 (5th C port pin)
         NewBallDelay = 10000;
     
       NewBallDelay++;
     
-      if (NewBallDelay > 5000) // was 5000
+      if (NewBallDelay > 5000)
         NewBallDelay = 0;
     
       m = 0;
       while (m < 255) {
         writey(yp);
         writex(xp);
-        //PORTD = yp;
-        //PORTB = xp;
         m++; 
       }
    
@@ -287,7 +254,7 @@ void setup() {
           }
         }
       } else if (xOld > 134) { // Ball on right side of screen
-        if ((PINC & 8U) == 0) { //was 32U
+        if ((PINC & 8U) == 0) {
           if ((Rused == 0) && (deadball == 0)) {  
             VxNew = -1.5*g*costable[Rangle];   
             VyNew = g + -1.5*g*sintable[Rangle];
@@ -301,50 +268,40 @@ void setup() {
     //Figure out which point we're going to draw. 
     xp =  (int) floor(Xnew);
     yp =  (int) floor(Ynew);
-    //yp = 511 - (int) floor(Ynew);
     
  
     //Draw Ground and Net
-    k = 0; // draws the ground and net multiple times per cycle. Increase to slow down, decrease to speed up.
+    k = 0; 
     //while (k < 20) { 
-    while (k < 7) {
+    while (k < 7) { // draws the ground and net multiple times per cycle. Increase to slow down, decrease to speed up.
       k++;
       m = 0;
   
       while (m < 127) {
         writey(0);
         writex(m);
-        //PORTD = 0;    // Y-position
-        //PORTB = m;    // X-position
         m++; 
       }
 
       writex(127);
-      //PORTB = 127;   // X-position of NET
       m = 0;
       while (m < 61) {
         writey(m);
-        //PORTD = m;    // Y-position
         m += 2; 
       }
   
       while (m > 1) {
         writey(m);
-        //PORTD = m;    // Y-position
         m -= 2; 
       }
 
       writey(0);
       writex(127);
-      //PORTD = 0;    // Y-position
-      //PORTB = 127;   //Redundant, but allows time for scope trace to catch up.
       m = 127;
   
       while (m < 255) {
         writey(0);
         writex(m);
-        //PORTD = 0;    // Y-position
-        //PORTB = m;    // X-position
         m++; 
       }
     }
@@ -356,8 +313,6 @@ void setup() {
       while (k < (4*m*m)) {
         writex(xOldList[m]);
         writey(yOldList[m]);
-        //PORTB = xOldList[m];
-        //PORTD = yOldList[m];
         k++;
       }
       m++;
@@ -367,8 +322,6 @@ void setup() {
     // Write the point to the buffer
     writey(yp);
     writex(xp);
-    //PORTD = yp;
-    //PORTB = xp; 
     m = 0;
     while (m < (historyLength - 1)) {
       xOldList[m] = xOldList[m+1];
@@ -383,8 +336,6 @@ void setup() {
     while (m < 100) { 
       writey(yp);
       writex(xp);
-      //PORTD = yp;
-      //PORTB = xp;
       m++; 
     }
   
